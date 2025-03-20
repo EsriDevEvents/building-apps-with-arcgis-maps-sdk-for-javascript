@@ -23,7 +23,6 @@ import SceneLayer from "@arcgis/core/layers/SceneLayer";
 import PopupTemplate from "@arcgis/core/PopupTemplate";
 import ExpressionInfo from "@arcgis/core/form/ExpressionInfo";
 import Search from "@arcgis/core/widgets/Search";
-import Home from "@arcgis/core/widgets/Home";
 import LayerList from "@arcgis/core/widgets/LayerList";
 import Expand from "@arcgis/core/widgets/Expand";
 import { Chart, registerables } from "chart.js";
@@ -57,7 +56,7 @@ let view: SceneView;
 document
   .querySelector("arcgis-scene")
   ?.addEventListener("viewReady", async (event) => {
-    view = event.detail.view;
+    view = (event as any).detail.view;
     map = view.map;
     console.log(`Got view and map from the DOM`, view, map);
 
@@ -293,11 +292,6 @@ const initApp = () => {
     container: "search-widget-container",
     view: view,
   });
-
-  let homeWidget = new Home({
-    view: view,
-  });
-  view.ui.add(homeWidget, "top-left");
 
   const layerList = new LayerList({
     view: view,
